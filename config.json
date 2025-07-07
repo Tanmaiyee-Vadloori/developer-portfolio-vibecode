@@ -75,6 +75,22 @@
       }
     ]
   },
+  "education": {
+    "title": "Education",
+    "schools": [
+      {
+        "institution": "Your University Name",
+        "degree": "Your Degree (e.g., B.Tech in Computer Science)",
+        "date": "Start Year - End Year",
+        "details": [
+          "Relevant coursework, honors, or activities",
+          "Any notable achievements or projects"
+        ],
+        "logo": "assets/logos/Placeholder_Logo.png",
+        "logo_dark": "assets/logos/Placeholder_Logo.png"
+      }
+    ]
+  },
   "skills": {
     "title": "Skills & Technologies",
     "categories": [

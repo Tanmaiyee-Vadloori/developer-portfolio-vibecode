@@ -52,6 +52,10 @@ export class SectionManager {
             this.updateSkillsSection(config);
         }
         
+        if (features.education) {
+            this.updateEducationSection(config);
+        }
+        
         // Update "Projects on GitHub" section title from config if available
         if (features.github_projects && config.github_projects?.title) {
             const githubProjectsTitle = document.querySelector('.projects-on-github h2');
@@ -260,6 +264,86 @@ export class SectionManager {
         return experienceItem;
     }
 
+    // Update education section dynamically
+    updateEducationSection(config) {
+        const educationSection = document.querySelector('.education');
+        const titleElement = educationSection.querySelector('h2');
+        if (titleElement) {
+            titleElement.textContent = this.configManager.getSectionTitle('education');
+        }
+        // Clear existing education items
+        const existingItems = educationSection.querySelectorAll('.education-item');
+        existingItems.forEach(item => item.remove());
+        // Create document fragment
+        const fragment = document.createDocumentFragment();
+        // Add all education items to fragment
+        if (config.education?.schools?.length) {
+            config.education.schools.forEach(school => {
+                const educationItem = this.createEducationItem(school);
+                fragment.appendChild(educationItem);
+            });
+        } else {
+            // Show placeholder for empty education
+            const emptyState = document.createElement('div');
+            emptyState.className = 'education-item';
+            emptyState.innerHTML = `
+                <div class="education-content">
+                    <h3>Your Education Will Appear Here</h3>
+                    <p class="date">Ready to showcase your academic journey</p>
+                    <ul>
+                        <li>Add your education to the config.json file</li>
+                        <li>Include institution logos and degree details</li>
+                        <li>Highlight your achievements and coursework</li>
+                    </ul>
+                </div>
+            `;
+            fragment.appendChild(emptyState);
+        }
+        // Append all education items at once
+        educationSection.appendChild(fragment);
+    }
+    // Create individual education item
+    createEducationItem(school) {
+        const educationItem = document.createElement('div');
+        educationItem.className = 'education-item';
+        const detailsHtml = Array.isArray(school.details)
+            ? school.details.map(detail => `<li>${detail}</li>`).join('')
+            : `<li>${school.details}</li>`;
+        let logoHtml = '';
+        if (school.logo || school.logo_dark) {
+            logoHtml = `
+                <div class="school-logo">
+                    ${school.logo ? `<img src="${school.logo}" alt="${school.institution} logo" class="light-mode-logo" loading="lazy">` : ''}
+                    ${school.logo_dark ? `<img src="${school.logo_dark}" alt="${school.institution} logo" class="dark-mode-logo" loading="lazy">` : ''}
+                </div>
+            `;
+        }
+        educationItem.innerHTML = `
+            <div class="education-header">
+                <div class="education-header-content">
+                    <h3>${school.institution} | ${school.degree}</h3>
+                    ${school.date ? `<p class="date">${school.date}</p>` : ''}
+                </div>
+                ${logoHtml}
+                <div class="accordion-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="6,9 12,15 18,9"></polyline>
+                    </svg>
+                </div>
+            </div>
+            <div class="education-content">
+                <ul>
+                    ${detailsHtml}
+                </ul>
+            </div>
+        `;
+        // Add click event listener for accordion functionality
+        const header = educationItem.querySelector('.education-header');
+        header.addEventListener('click', () => {
+            this.toggleEducationAccordion(educationItem);
+        });
+        return educationItem;
+    }
     // Toggle experience accordion
     toggleExperienceAccordion(experienceItem) {
         experienceItem.classList.toggle('expanded');
@@ -268,6 +352,11 @@ export class SectionManager {
     // Toggle project accordion
     toggleProjectAccordion(projectItem) {
         projectItem.classList.toggle('expanded');
+    }
+
+    // Toggle education accordion
+    toggleEducationAccordion(educationItem) {
+        educationItem.classList.toggle('expanded');
     }
 
     // Update skills section dynamically

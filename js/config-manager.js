@@ -48,7 +48,8 @@ export class ConfigManager {
             projects: this.config?.projects?.title || 'Projects',
             experience: this.config?.experience?.title || 'Experience',
             skills: this.config?.skills?.title || 'Skills',
-            github_projects: this.config?.github_projects?.title || 'GitHub Projects'
+            github_projects: this.config?.github_projects?.title || 'GitHub Projects',
+            education: this.config?.education?.title || 'Education'
         };
         return titles[sectionKey] || '';
     }
@@ -66,6 +67,8 @@ export class ConfigManager {
                 return this.config?.skills?.categories?.length > 0;
             case 'github_projects':
                 return Boolean(this.config?.github_username);
+            case 'education':
+                return this.config?.education?.schools?.length > 0;
             default:
                 return true;
         }
