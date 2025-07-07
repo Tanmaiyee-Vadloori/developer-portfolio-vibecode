@@ -4,8 +4,20 @@
     margin-top: 4rem;
     padding: 3rem 2rem 2rem;
     text-align: center;
-    border-top: 1px solid var(--border-color);
+    border-top: none;
     box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.05);
+    position: relative;
+    overflow: hidden;
+}
+
+.footer-gradient {
+    height: 6px;
+    width: 100%;
+    background: linear-gradient(90deg, var(--accent-color, #6a82fb), var(--secondary-accent, #fc5c7d));
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
 }
 
 .footer-content {
@@ -13,18 +25,38 @@
     margin: 0 auto;
     padding: 0;
     transition: var(--transition);
+    position: relative;
+    z-index: 3;
 }
 
-.footer-content:hover {
-    transform: translateY(-2px);
+.footer-profile {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
+
+.footer-avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    border: 3px solid var(--border-color);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    object-fit: cover;
+    background: var(--background-color);
+    transition: box-shadow 0.3s;
+}
+
+.footer-avatar:hover {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
 }
 
 .footer-tagline {
-    font-size: 1.2rem;
-    color: var(--text-muted);
+    font-size: 1.3rem;
+    color: var(--accent-color, #6a82fb);
     margin-bottom: 2rem;
-    font-weight: 400;
+    font-weight: 500;
     line-height: 1.5;
+    letter-spacing: 0.01em;
 }
 
 .footer-social {
@@ -51,8 +83,10 @@
 }
 
 .footer-social a:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+    background: var(--accent-color, #6a82fb);
+    color: #fff;
 }
 
 .footer-social svg {
@@ -69,13 +103,24 @@
 .footer-bottom {
     padding-top: 1.5rem;
     border-top: 1px solid var(--border-color);
-    opacity: 0.8;
+    opacity: 0.9;
 }
 
 .footer-built-with {
-    color: var(--text-muted);
-    font-size: 0.9rem;
-    font-weight: 400;
+    color: var(--secondary-accent, #fc5c7d);
+    font-size: 1rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.footer-built-with::before {
+    content: '\2764'; /* Heart symbol */
+    color: var(--accent-color, #6a82fb);
+    font-size: 1.1em;
+    margin-right: 0.3em;
 }
 
 /* Responsive Design for Footer */
@@ -84,28 +129,23 @@
         padding: 2.5rem 1.5rem 1.5rem;
         margin-top: 3rem;
     }
-    
-    .footer-content {
-        padding: 0;
-        margin: 0;
+    .footer-avatar {
+        width: 48px;
+        height: 48px;
     }
-    
     .footer-tagline {
         font-size: 1.1rem;
         margin-bottom: 1.5rem;
     }
-    
     .footer-social {
         gap: 0.75rem;
         margin-bottom: 1.5rem;
     }
-    
     .footer-social a {
         min-width: 42px;
         height: 42px;
         padding: 0.6rem;
     }
-    
     .footer-social svg {
         width: 18px;
         height: 18px;
@@ -116,31 +156,25 @@
     .footer {
         padding: 2rem 1rem 1rem;
     }
-    
-    .footer-content {
-        padding: 0;
-        margin: 0;
+    .footer-avatar {
+        width: 36px;
+        height: 36px;
     }
-    
     .footer-tagline {
         font-size: 1rem;
         margin-bottom: 1.25rem;
     }
-    
     .footer-social {
         gap: 0.5rem;
     }
-    
     .footer-social a {
         min-width: 40px;
         height: 40px;
     }
-    
     .footer-social svg {
         width: 16px;
         height: 16px;
     }
-    
     .footer-built-with {
         font-size: 0.85rem;
     }
